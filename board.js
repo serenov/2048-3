@@ -36,10 +36,11 @@ function getColorFromValue(value) {
   return `hsl(240, ${70 + saturation}%, ${lightness}%)`;
 }
 
-function Tile(value, cellIndex) {
+function Tile(value, cellIndex, additionalClass) {
   const container = document.querySelector(".tile-container");
   this.dom = document.querySelector(".tile-template").cloneNode(true);
   this.dom.classList.remove("tile-template");
+  this.dom.classList.add(additionalClass);
   container.appendChild(this.dom);
 
 
@@ -214,7 +215,7 @@ function mergeTheTiles(tiles) {
     const newTileValue = firstTile.value + SecondTile.value;
     const newCellNumber = firstTile.destination;
 
-    const newTile = new Tile(newTileValue, newCellNumber);
+    const newTile = new Tile(newTileValue, newCellNumber, "merge-animation");
 
     board_state[newCellNumber].tile = newTile;
   });
@@ -234,7 +235,7 @@ function generateRandomTile() {
     if(board_internal[randomIndex] === empty) {
       const randomValue = values[randomIndex % values.length];
       board_internal[randomIndex] = randomValue;
-      board_state[randomIndex].tile = new Tile(randomValue, randomIndex)
+      board_state[randomIndex].tile = new Tile(randomValue, randomIndex, "show-animation")
       break;
     }
   }
