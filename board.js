@@ -257,24 +257,19 @@ function checkIntegrity(when) {
 
 function updateGameStatus() {
 
-  const predicate = (value, cellIndex) => board_internal[cellIndex] === value
   const anyAdjacentTiles = (value, cellIndex) => {
+
+    const predicate = (direction) => board_internal[cellIndex + direction] === value
 
     const [x, y] = [cellIndex % n_by_n, Math.floor(cellIndex / n_by_n)];
 
-    if(x !== 0) {
-      if(predicate(value, cellIndex + Direction.left)) return true;
-    }
+    if(x !== 0 && predicate(Direction.left)) return true; 
 
-    if(y != 0) {
-      if(predicate(value, cellIndex + Direction.up)) return true;
-    }
+    if(y !== 0 && predicate(Direction.up)) return true; 
 
-    if(x != 3) {
-      if(predicate(value, cellIndex + Direction.right)) return true;
-    }
+    if(x !== 3 && predicate(Direction.right)) return true; 
   
-    return predicate(value, cellIndex + Direction.down);
+    return predicate(Direction.down);
   }
 
   for(let i = 0; i < container_size; i++) {
