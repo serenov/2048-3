@@ -288,6 +288,7 @@ async function testing(direction) {
 
   if(gameState.hasGameEnded) {
     console.log("game ended.");
+    alert("Game ended... you lose.");
     return;
   }
 
